@@ -1,4 +1,4 @@
-/* 
+/*
 *  How to make a super-fancy Ruby-style autovivifying hash in Javascript
 *
 *  We'll be using Proxies, which allow us to replace object access methods with our own.
@@ -37,7 +37,7 @@ h2[10]; // NaN
 *  non-fancy hash.  We'll make a super-fancy one that makes sure f is called on something that can recurse, by passing
 *  it a super-fancy hash that has f itself as the default function/block, and the original object as object to proxy.
 */
-const superFancyHash = (f = () => {}, obj = {}) => new Proxy(obj, {get: (h, k) => ((k in h || f(superFancyHash(f, obj), k)) && h[k])});
+const superFancyHash = (f = () => {}, obj = {}) => new Proxy(obj, {get: (h, k) => ((k in h || f(superFancyHash(f, h), k)) && h[k])});
 const h3 = superFancyHash(fib);
 h3[0] = h3[1] = 1;
 
